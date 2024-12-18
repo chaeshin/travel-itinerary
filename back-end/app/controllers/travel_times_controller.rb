@@ -1,0 +1,2 @@
+class TravelTimesController < ApplicationController
+end

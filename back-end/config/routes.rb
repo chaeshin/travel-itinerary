@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :travel_times
+  resources :likes
+  resources :users_trips
+  resources :photos
   resources :locations
   resources :trips
   devise_for :users
