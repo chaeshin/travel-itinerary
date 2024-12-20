@@ -8,32 +8,82 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create!([{
-  email: 'john@gmail.com'
-},
-{
-  email: 'mary@gmail.com'
-},
-{
-  email: 'rebecca@gmail.com'
-}
-])
+puts " "
+puts "Cleaning the DB..."
+User.destroy_all
+Trip.destroy_all
+Location.destroy_all
+TravelTime.destroy_all
+Like.destroy_all
+Photo.destroy_all
 
-Trip.create!([{
-  name:,
+p("creating users")
+john = User.create!({
+  email: 'john@gmail.com',
+  password: 'password'
+})
 
-}])
-Location.create!([{
-  name:'Tokyo National Museum',
+mary = User.create!({
+  email: 'mary@gmail.com',
+  password: 'password'
+})
+
+rebecca = User.create!({
+  email: 'rebecca@gmail.com',
+  password: 'password'
+})
+
+
+p("creating trips")
+tokyo = Trip.create!({
+  name: 'Tokyo',
+  start_time: DateTime.strptime("5/01/2025 8:00", "%m/%d/%Y %H:%M"),
+  end_time: DateTime.strptime("05/15/2025 17:00", "%m/%d/%Y %H:%M")
+})
+
+p("creating locations")
+tokyo_national_museum = Location.create!({
+  name: 'Tokyo National Museum',
   address: '13-9 Uenokoen, Taito City, Tokyo 110-8712',
   phone_number: '+81 05055418600',
-  category: 'historic site',
+  category: 'National museum',
   priority: 1,
   reservation_required: false,
   reservation_completed: false,
-  typical_time_spent:,
-  trip:,
-  user:,
+  trip: tokyo,
+  user: john,
+  website: 'https://www.tnm.jp/'
+})
 
-}
-])
+tokyo_tower = Location.create!({
+  name: 'Tokyo Tower',
+  address: '4 Chome-2-8 Shibakoen, Minato City, Tokyo 105-0011',
+  phone_number: '+81 0334335111',
+  category: 'Observatioin deck',
+  priority: 1,
+  reservation_required: false,
+  reservation_completed: false,
+  trip: tokyo,
+  user: mary,
+  website: 'https://www.tokyotower.co.jp/'
+})
+
+p("creating travel times")
+TravelTime.create!([{
+  start_location: tokyo_national_museum,
+  end_location: tokyo_tower,
+  time_in_min: 30,
+  transportation_type: 'public'
+}])
+
+p("likes")
+Like.create!([{
+  user: mary,
+  location: tokyo_national_museum
+}])
+
+p("creating photos")
+Photo.create([{
+  trip: tokyo,
+  url: nil
+}])

@@ -7,8 +7,8 @@ class Location < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :trip }
   # validate address format
   validates :address, presence: true, uniqueness: { scope: :trip }
-  validates :phone_number, format: { with: ^\\+?[1-9][0-9]{7,14}$ }
-  validates :category, inclusion: { in: ["restaurant", "store", "museum", "historic site"]}
+  # phone number format
+  validates :category, inclusion: { in: ["restaurant", "store", "National museum", "historic site", 'Observatioin deck']}
   validates :priority, presence: true, numericality: { greater_than: 0 }
 
 end
