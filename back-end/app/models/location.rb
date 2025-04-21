@@ -2,7 +2,7 @@ class Location < ApplicationRecord
   belongs_to :trip
   belongs_to :user
   has_many :travel_times
-  has_many :likes
+  has_many :likes, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :trip }
   # validate address format
