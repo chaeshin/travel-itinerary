@@ -41,12 +41,24 @@ tokyo = Trip.create!({
   end_time: DateTime.strptime("05/15/2025 17:00", "%m/%d/%Y %H:%M")
 })
 
+south_of_france = Trip.create!({
+  name: 'South of France',
+  start_time: DateTime.strptime("6/01/2025 8:00", "%m/%d/%Y %H:%M"),
+  end_time: DateTime.strptime("06/15/2025 17:00", "%m/%d/%Y %H:%M")
+})
+
+mexico_city = Trip.create!({
+  name: 'Mexico City',
+  start_time: DateTime.strptime("7/01/2025 8:00", "%m/%d/%Y %H:%M"),
+  end_time: DateTime.strptime("07/15/2025 17:00", "%m/%d/%Y %H:%M")
+})
+
 p("creating locations")
 tokyo_national_museum = Location.create!({
   name: 'Tokyo National Museum',
   address: '13-9 Uenokoen, Taito City, Tokyo 110-8712',
   phone_number: '+81 05055418600',
-  category: 'National museum',
+  category: 'national museum',
   priority: 1,
   reservation_required: false,
   reservation_completed: false,
@@ -59,13 +71,39 @@ tokyo_tower = Location.create!({
   name: 'Tokyo Tower',
   address: '4 Chome-2-8 Shibakoen, Minato City, Tokyo 105-0011',
   phone_number: '+81 0334335111',
-  category: 'Observatioin deck',
+  category: 'observatioin deck',
   priority: 1,
   reservation_required: false,
   reservation_completed: false,
   trip: tokyo,
   user: mary,
   website: 'https://www.tokyotower.co.jp/'
+})
+
+nezu_museum = Location.create!({
+  name: 'Nezu Museum',
+  address: '6 Chome-5-1 Minamiaoyama, Minato City, Tokyo 107-0062',
+  phone_number: '+81 0334762020',
+  category: 'museum',
+  priority: 2,
+  reservation_required: true,
+  reservation_completed: false,
+  trip: tokyo,
+  user: rebecca,
+  website: 'https://www.nezu-muse.or.jp/en/'
+})
+
+meiji_jingu = Location.create!({
+  name: 'Meiji Jingu',
+  address: '1 Chome-1 Yoyogikamizonocho, Shibuya City, Tokyo 151-8557',
+  phone_number: '+81 0334773600',
+  category: 'shrine',
+  priority: 2,
+  reservation_required: false,
+  reservation_completed: false,
+  trip: tokyo,
+  user: john,
+  website: 'https://www.meijijingu.or.jp/en/'
 })
 
 p("creating travel times")

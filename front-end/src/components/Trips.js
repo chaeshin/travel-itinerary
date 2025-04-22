@@ -30,10 +30,10 @@ function Trips() {
       <div className="trips-container">
         {trips.map(trip => (
           <div key={trip.id} className="trip-card">
-            <h2>{trip.title}</h2>
-            <p>{trip.description}</p>
-            <p>Start Date: {new Date(trip.start_date).toLocaleDateString()}</p>
-            <p>End Date: {new Date(trip.end_date).toLocaleDateString()}</p>
+            <h2>{trip.name}</h2>
+            {/* <p>{trip.description}</p> */}
+            <p>From: {new Date(trip.start_time).toLocaleDateString()}</p>
+            <p>Until: {new Date(trip.end_time).toLocaleDateString()}</p>
           </div>
         ))}
       </div>
