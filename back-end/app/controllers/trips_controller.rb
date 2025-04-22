@@ -6,6 +6,9 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find(params[:id])
+    render json: @trip, include: :locations
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Trip not found' }, status: :not_found
   end
 
   def new

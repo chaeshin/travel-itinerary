@@ -1,32 +1,42 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Locations() {
   const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { tripId } = useParams();
 
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/trips/1/locations');
+        const response = await axios.get(`http://localhost:3001/trips/${tripId}/locations`);
         setLocations(response.data);
-      } catch (error) {
-        console.error('Error fetching locations:', error);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch locations')
+        setLoading(false);
+
       }
     };
 
     fetchLocations();
-  }, []);
+  }, [tripId]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div>
       <h2>Locations</h2>
-      <ul>
+      <div className='locations-container'>
         {locations.map(location => (
-          <li key={location.id}>
-            {location.name} - {location.category}
-          </li>
+          <div key={location.id} className='location-card'>
+            <h2>{location.name}</h2>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
