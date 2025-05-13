@@ -13,8 +13,10 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     # origins 'https:// domain of the deployed project' # when deployed you can do this line
 
     resource '*',
-      headers: :any,
+      headers: ["Authorization"],
+      expose: ["Authorization"],
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      max_age: 600,
       credentials: true
   end
 end
