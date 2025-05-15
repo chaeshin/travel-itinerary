@@ -1,18 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/Home';
 import Trips from './components/Trips';
 import Locations from './components/Locations';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import Navbar from './components/Navbar';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [currUser, setCurrUser] = useState(null);
+
   return (
     <Router>
       <div className="App">
+        <Navbar currUser={currUser} setCurrUser={setCurrUser} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/trips" element={<Trips />} />
-          <Route path="/trips/:tripId/locations" element={<Locations />} />
+          <Route path="/login" element={<Login setCurrUser={setCurrUser} />} />
+          <Route path="/signup" element={<Signup setCurrUser={setCurrUser} />} />
+          <Route
+            path="/trips"
+            element={currUser ? <Trips /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/trips/:tripId/locations"
+            element={currUser ? <Locations /> : <Navigate to="/login" />}
+          />
         </Routes>
       </div>
     </Router>
