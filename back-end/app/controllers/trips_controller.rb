@@ -21,4 +21,24 @@ class TripsController < ApplicationController
     end
   end
 
+  def test
+    if current_user
+      # Render HTML instead of JSON for visual inspection
+      render html: "
+        <h1>Trips for #{current_user.email}</h1>
+        <pre>#{JSON.pretty_generate(Trip.all.as_json)}</pre>
+        <style>
+          pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+          }
+        </style>
+      ".html_safe
+    else
+      render html: "<h1>Not authenticated</h1>".html_safe
+    end
+  end
+
 end
