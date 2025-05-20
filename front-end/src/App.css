@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   font-family: 'Lora', serif;  /* Elegant body font */
+  padding-top: 100px; /* Adjust based on your navbar height */
 }
 
 .App-logo {
