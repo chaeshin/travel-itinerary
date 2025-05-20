@@ -82,4 +82,4 @@ const Login=({setCurrUser, setShow}) => {
   );
 };
 
-export default Login;
+export default Login
