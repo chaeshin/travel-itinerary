@@ -55,7 +55,7 @@ function Trips() {
 
   return (
     <div>
-      <h1>My Trips</h1>
+      <h1>You have upcoming trips.</h1>
       <div className="trips-container">
         {trips.map(trip => (
           <div
@@ -65,11 +65,11 @@ function Trips() {
           >
             <h2>{trip.name}</h2>
             {/* <p>{trip.description}</p> */}
-            <p>From: {new Date(trip.start_time).toLocaleDateString()}</p>
-            <p>Until: {new Date(trip.end_time).toLocaleDateString()}</p>
+            <p>{new Date(trip.start_time).toLocaleDateString()} - {new Date(trip.end_time).toLocaleDateString()}</p>
           </div>
         ))}
       </div>
+      <h1>You have completed trips this year.</h1>
     </div>
   );
 }
