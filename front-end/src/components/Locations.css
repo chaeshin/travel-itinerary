@@ -10,6 +10,7 @@
   box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   margin-top: 60px; /* Adjust based on your navbar height */
+  font-weight: 200;
 }
 
 .location-lists {
@@ -41,13 +42,12 @@
   transform: translateY(-5px);
 }
 
-.location-card h3 {
-  margin: 0 0 10px 0;
-  color: #e64c00;
-}
-
 .location-card p {
-  margin: 5px 0;
+  margin: 0px 0;
   color: #146b23;
   line-height: 1.4;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
