@@ -2,6 +2,7 @@ class LocationsController < ApplicationController
   before_action :set_trip
 
   def index
+    @trip = Trip.find(params[:trip_id])
     @locations = @trip.locations
     render json: @locations
   rescue ActiveRecord::RecordNotFound
