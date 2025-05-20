@@ -1,0 +1,53 @@
+.locations-container {
+  position: fixed;
+  border-radius: 15px;
+  right: 0;
+  top: 0;
+  width: 25%;
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  margin-top: 60px; /* Adjust based on your navbar height */
+}
+
+.location-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.locations-list {
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.list-title {
+  color: #e64c00;
+  font-size: 1.2em;
+  margin-bottom: 15px;
+  text-align: left;
+  font-weight: 200;
+  border-bottom: 1px solid #e0e0e0; /* Add grey divider line */
+  margin-bottom: 15px; /* Add space below the line */
+}
+
+.location-card {
+  padding: 12px;
+}
+
+.location-card:hover {
+  transform: translateY(-5px);
+}
+
+.location-card h3 {
+  margin: 0 0 10px 0;
+  color: #e64c00;
+}
+
+.location-card p {
+  margin: 5px 0;
+  color: #146b23;
+  line-height: 1.4;
+}

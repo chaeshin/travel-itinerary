@@ -10,7 +10,7 @@ const Navbar = ({ currUser, setCurrUser }) => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <Link to="/">Travel Itinerary</Link>
+        <Link to="/">Perfect Itinerary</Link>
       </div>
       <div className="navbar-auth">
         {currUser ? (

@@ -12,11 +12,33 @@ function Trips() {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/trips');
+        const token = localStorage.getItem('token');
+        console.log('Token from localStorage:', token); // Debug token
+
+        if (!token) {
+          setError('No authentication token found');
+          setLoading(false);
+          return;
+        }
+
+        const response = await axios.get('http://localhost:3001/trips', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        });
+
+        console.log('Response headers:', response.headers);
+        console.log('Response status:', response.status);
+        console.log('Trips data:', response.data);
+
         setTrips(response.data);
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch trips');
+        console.error('Full error:', err);
+        console.error('Error response:', err.response?.data);
+        setError(err.response?.data?.error || 'Failed to fetch trips');
         setLoading(false);
       }
     };

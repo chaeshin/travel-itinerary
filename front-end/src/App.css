@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Lora', serif;  /* Elegant body font */
 }
 
 .App-logo {
@@ -35,4 +36,18 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Global header styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;  /* Sophisticated header font */
+  color: #e64c00; /* Orange */
+  letter-spacing: 0.5px;
+}
+
+/* Global body styles */
+p, div, span, a {
+  font-family: 'Lora', serif;
+  color: #146b23; /* Forest Green */
+  line-height: 1.6;
 }
