@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/Home';
@@ -11,6 +11,10 @@ import './App.css';
 
 const App = () => {
   const [currUser, setCurrUser] = useState(null);
+
+  useEffect(() => {
+    console.log('App mounted'); // Debug log
+  }, []);
 
   return (
     <Router>
