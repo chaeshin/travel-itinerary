@@ -1,61 +1,60 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login=({setCurrUser, setShow}) => {
+const Login = ({ setCurrUser, setShow }) => {
   const formRef = useRef();
   const navigate = useNavigate();
-
+  const [error, setError] = useState(null);
 
   const login = async (userInfo) => {
-    const url = "http://localhost:3001/login";  // Update port to 3001
-    try{
-      const response = await fetch(url, {
-        method: 'post',
+    try {
+      const response = await fetch("http://localhost:3001/login", { // Changed port to 3001
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'accept': 'application/json'
+          'Accept': 'application/json'
         },
         body: JSON.stringify(userInfo)
       });
 
-      const data = await response.json()
-      if(!response.ok) throw new Error(data.error);
+      const data = await response.json();
+      console.log('Login response:', data); // Debug log
 
-      // Store token and user data
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('userData', JSON.stringify(data.user));
-      setCurrUser(data.user);
-      navigate('/trips');  // Redirect to trips page after successful login
-    } catch(error) {
-        console.error("Login error:", error);
+      if (response.ok && data.token) { // Changed logic to check for successful response
+        localStorage.setItem('token', data.token);
+        setCurrUser(data.user);
+        console.log('Login successful, navigating to trips');
+        navigate('/trips');
+      } else {
+        throw new Error(data.error || 'Login failed');
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError(error.message);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError(null);
     const formData = new FormData(formRef.current);
     const data = Object.fromEntries(formData);
     const userInfo = {
-      user : {
+      user: {
         email: data.email,
         password: data.password
       }
     };
     login(userInfo);
-    e.target.reset();
   };
 
-  const handleClick = (e) => {
-      e.preventDefault();
-      setShow(false);
-  };
-
-  return(
+  return (
     <div className="login-container">
       <h1>Login</h1>
+      {error && <div className="error-message">{error}</div>}
       <form ref={formRef} onSubmit={handleSubmit}>
         <div className="form-group">
-          Email:
+          <label>Email:</label>
           <input
             type="email"
             name="email"
@@ -64,7 +63,7 @@ const Login=({setCurrUser, setShow}) => {
           />
         </div>
         <div className="form-group">
-          Password:
+          <label>Password:</label>
           <input
             type="password"
             name="password"
@@ -76,10 +75,13 @@ const Login=({setCurrUser, setShow}) => {
       </form>
       <div className="signup-link">
         Don't have an account?
-        <a href="#signup" onClick={handleClick}>Signup</a>
+        <a href="#signup" onClick={(e) => {
+          e.preventDefault();
+          setShow(false);
+        }}>Signup</a>
       </div>
     </div>
   );
 };
 
-export default Login
+export default Login;
