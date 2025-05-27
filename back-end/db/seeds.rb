@@ -64,7 +64,9 @@ tokyo_national_museum = Location.create!({
   reservation_completed: false,
   trip: tokyo,
   user: john,
-  website: 'https://www.tnm.jp/'
+  website: 'https://www.tnm.jp/',
+  longitude: 139.773,
+  latitude: 35.718
 })
 
 tokyo_tower = Location.create!({
@@ -77,7 +79,9 @@ tokyo_tower = Location.create!({
   reservation_completed: false,
   trip: tokyo,
   user: mary,
-  website: 'https://www.tokyotower.co.jp/'
+  website: 'https://www.tokyotower.co.jp/',
+  longitude: 139.745,
+  latitude: 35.6586
 })
 
 nezu_museum = Location.create!({
@@ -90,7 +94,9 @@ nezu_museum = Location.create!({
   reservation_completed: false,
   trip: tokyo,
   user: rebecca,
-  website: 'https://www.nezu-muse.or.jp/en/'
+  website: 'https://www.nezu-muse.or.jp/en/',
+  longitude: 139.720,
+  latitude: 35.664
 })
 
 meiji_jingu = Location.create!({
@@ -103,7 +109,9 @@ meiji_jingu = Location.create!({
   reservation_completed: false,
   trip: tokyo,
   user: john,
-  website: 'https://www.meijijingu.or.jp/en/'
+  website: 'https://www.meijijingu.or.jp/en/',
+  longitude: 139.699,
+  latitude: 35.6764
 })
 
 p("creating travel times")
