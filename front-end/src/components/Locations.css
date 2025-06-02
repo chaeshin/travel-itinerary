@@ -1,71 +1,49 @@
 .locations-page {
   display: flex;
+  flex-direction: row;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-}
-
-.locations-sidebar {
-  width: 25%;
-  height: 100vh;
-  overflow-y: auto;
-  background: white;
-  padding: 20px;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .locations-container {
-  width: 25vw;
+  width: 25%;
+  min-width: 300px;
+  height: 100%;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  margin-left: auto; /* This pushes the container to the right */
 }
 
 .location-lists {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.locations-list {
-  border-radius: 10px;
-  padding: 15px;
+  margin-bottom: 10px;
 }
 
 .list-title {
   color: #e64c00;
   font-size: 1.2em;
-  margin-bottom: 15px;
   text-align: left;
   font-weight: 200;
   border-bottom: 1px solid #e0e0e0; /* Add grey divider line */
-  margin-bottom: 15px; /* Add space below the line */
+  margin-bottom: 5px; /* Add space below the line */
 }
 
 .location-card {
-  padding: 12px;
-  transition: transform 0.2s ease;
-  display: flex;
-  align-items: center;
+  padding: 5px;
+  transition: all 0.2s ease;
 }
 
 .location-card:hover {
   transform: translateY(-5px);
-  gap: 8px;
 }
 
 .location-card p {
   margin: 0px 0;
   color: #0d4e18;
-  line-height: 1.4;
+  line-height: 1;
   text-align: left;
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.trip-title {
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 1.5em;
-  font-weight: 200;
-  text-align: left;
 }
