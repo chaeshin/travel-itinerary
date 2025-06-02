@@ -1,3 +1,4 @@
+/* Layout */
 .dashboard {
   height: 100vh;
   overflow-y: scroll;
@@ -13,24 +14,31 @@
   padding: 2rem;
 }
 
-.upcoming {
-  background-size: cover;
-  background-position: center;
-  color: white;
-}
-
 .section-content {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Section Styles */
+.upcoming {
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.completed {
+  background: #f5f5f5;
+}
+
+/* Typography */
 .section-title {
   font-size: 3.5rem;
   margin-bottom: 2rem;
   font-weight: 600;
 }
 
+/* Trip Cards Container */
 .trips-scroll {
   position: relative;
   overflow: hidden;
@@ -44,6 +52,7 @@
   scroll-behavior: smooth;
 }
 
+/* Trip Card */
 .trip-card {
   min-width: 300px;
   background: white;
@@ -68,6 +77,7 @@
   font-size: 0.9rem;
 }
 
+/* Navigation */
 .scroll-arrows {
   position: absolute;
   right: 1rem;
@@ -90,6 +100,4 @@
   color: #333;
 }
 
-.completed {
-  background: #f5f5f5;
-}
+
