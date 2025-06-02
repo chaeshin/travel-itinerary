@@ -1,20 +1,8 @@
 .locations-page {
   display: flex;
-  height: 100vh;
   width: 100%;
-}
-
-.map-container {
-  flex: 1;
   height: 100vh;
-  width: 75%;
-  position: relative;
-}
-
-/* Make sure Mapbox canvas is properly sized */
-.mapboxgl-canvas {
-  width: 100% !important;
-  height: 100% !important;
+  overflow: hidden;
 }
 
 .locations-sidebar {
@@ -27,18 +15,8 @@
 }
 
 .locations-container {
-  position: fixed;
-  border-radius: 15px;
-  right: 0;
-  top: 0;
-  width: 25%;
-  height: 100vh;
-  background: rgb(255, 255, 255);
-  padding: 20px;
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+  width: 25vw;
   overflow-y: auto;
-  margin-top: 60px; /* Adjust based on your navbar height */
-  font-weight: 200;
 }
 
 .location-lists {
@@ -63,24 +41,31 @@
 }
 
 .location-card {
+  padding: 12px;
+  transition: transform 0.2s ease;
   display: flex;
   align-items: center;
-  padding: 12px;
-  margin-bottom: 8px;
-  transition: transform 0.2s ease;
 }
 
 .location-card:hover {
   transform: translateY(-5px);
+  gap: 8px;
 }
 
 .location-card p {
+  margin: 0px 0;
+  color: #0d4e18;
+  line-height: 1.4;
+  text-align: left;
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0;
 }
 
-.location-card svg {
-  color: #808080;
+.trip-title {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.5em;
+  font-weight: 200;
+  text-align: left;
 }
