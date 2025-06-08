@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapPin } from '@fortawesome/free-solid-svg-icons';
+import mapboxgl from 'mapbox-gl';
 import axios from 'axios';
-import './Locations.css'
+import 'mapbox-gl/dist/mapbox-gl.css';
+import './Locations.css';
+
+// Initialize map outside of component to avoid re-creation
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const Locations = () => {
   const [locations, setLocations] = useState([]);
@@ -12,6 +17,77 @@ const Locations = () => {
   const [error, setError] = useState(null);
   const { tripId } = useParams();
   const navigate = useNavigate();
+  const mapRef = useRef()
+  const mapContainerRef = useRef()
+
+  // Initialize map
+  useEffect(() => {
+    if (!process.env.REACT_APP_MAPBOX_TOKEN) {
+      console.error('Mapbox token not found');
+      return;
+    }
+
+    // Wait for container to be available
+    if (!mapContainerRef.current) {
+      console.log('Waiting for map container...');
+      return;
+    }
+
+    try {
+      console.log('Initializing map...');
+      mapRef.current = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [139.6500, 35.6764], // Longitude first, then latitude
+        zoom: 12
+      });
+
+      mapRef.current.on('load', () => {
+        console.log('Map loaded successfully');
+      });
+
+      // Add navigation controls
+      mapRef.current.addControl(new mapboxgl.NavigationControl());
+
+    } catch (error) {
+      console.error('Error initializing map:', error);
+      setError('Failed to initialize map');
+    }
+
+    // Cleanup function
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
+  }, [mapContainerRef.current]); // Add dependency on container ref
+
+  // Update markers when locations change
+  useEffect(() => {
+    if (!mapRef.current || !locations.length) return;
+
+    // Remove existing markers
+    const markers = document.getElementsByClassName('mapboxgl-marker');
+    while (markers[0]) {
+      markers[0].remove();
+    }
+
+    // Add markers for each location
+    locations.forEach(location => {
+      const marker = new mapboxgl.Marker()
+        .setLngLat([location.longitude, location.latitude])
+        .setPopup(new mapboxgl.Popup().setHTML(location.name))
+        .addTo(mapRef.current);
+    });
+
+    // Fit bounds to show all markers
+    const bounds = new mapboxgl.LngLatBounds();
+    locations.forEach(location => {
+      bounds.extend([location.longitude, location.latitude]);
+    });
+    mapRef.current.fitBounds(bounds, { padding: 50 });
+  }, [locations]);
 
   // fetch data logic
   useEffect(() => {
@@ -72,6 +148,10 @@ const Locations = () => {
 
   return (
     <div className="locations-page">
+      <div 
+        ref={mapContainerRef}  // Remove id="map-container" as it's redundant
+        className="map-container" 
+      />
       <div className="locations-container">
         {locations.length === 0 ? (
           <p>No locations found for this trip</p>
@@ -81,10 +161,10 @@ const Locations = () => {
             {renderLocationsList(1, 'must do')}
             {renderLocationsList(2, 'want to do')}
             {renderLocationsList(3, 'maybe')}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </div>
-  </div>
   );
 };
 
