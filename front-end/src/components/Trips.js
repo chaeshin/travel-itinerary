@@ -60,6 +60,15 @@ const Trips = () => {
     const currentTrip = trips[0] && new Date(trips[0].start_time) <= now && new Date(trips[0].end_time) >= now;
   
     return(
+      <div className="dashboard">
+        <div className="new-trip-button-container">
+          <button 
+            className="new-trip-button"
+            onClick={() => navigate('/trips/new')}
+          >
+            Create New Trip
+          </button>
+        </div>
       <section className={`dashboard-section ${isUpcoming ? 'upcoming' : 'completed'}`}
         style={isUpcoming ? {
           backgroundImage: trips[0] ?
@@ -89,6 +98,7 @@ const Trips = () => {
           </div>
         </div>
       </section>
+    </div>
 )};
 
   if (loading) return <div>Loading...</div>;

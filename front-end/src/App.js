@@ -7,6 +7,7 @@ import Locations from './components/Locations';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Navbar from './components/Navbar';
+import NewTrip from './components/NewTrip';
 import './App.css';
 
 const App = () => {
@@ -24,14 +25,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setCurrUser={setCurrUser} />} />
           <Route path="/signup" element={<Signup setCurrUser={setCurrUser} />} />
-          <Route
-            path="/trips"
-            element={currUser ? <Trips /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/trips/:tripId/locations"
-            element={currUser ? <Locations /> : <Navigate to="/login" />}
-          />
+          <Route path="/trips" element={currUser ? <Trips /> : <Navigate to="/login" />} />
+          <Route path="/trips/:tripId/locations" element={currUser ? <Locations /> : <Navigate to="/login" />} />
+          <Route path="/trips/new" element={<NewTrip />} />
         </Routes>
       </div>
     </Router>
