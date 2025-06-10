@@ -1,4 +1,6 @@
 class TripsController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @trips = Trip.all
     render json: @trips
@@ -11,34 +13,19 @@ class TripsController < ApplicationController
     render json: { error: 'Trip not found' }, status: :not_found
   end
 
-  def new
-    @trip = Trip.new
-  end
-
   def create
-    @trip = Trip.new(trip.params)
+    @trip = Trip.new(trip_params)  # Fixed: trip.params -> trip_params
     if @trip.save
-    end
-  end
-
-  def test
-    if current_user
-      # Render HTML instead of JSON for visual inspection
-      render html: "
-        <h1>Trips for #{current_user.email}</h1>
-        <pre>#{JSON.pretty_generate(Trip.all.as_json)}</pre>
-        <style>
-          pre {
-            background: #f4f4f4;
-            padding: 15px;
-            border-radius: 5px;
-            white-space: pre-wrap;
-          }
-        </style>
-      ".html_safe
+      UsersTrip.create(user: current_user, trip: @trip)
+      render json: @trip, status: :created
     else
-      render html: "<h1>Not authenticated</h1>".html_safe
+      render json: { errors: @trip.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
+  private
+
+  def trip_params
+    params.require(:trip).permit(:name, :start_time, :end_time)
+  end
 end
