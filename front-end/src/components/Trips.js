@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Trips.css';
+import axios from 'axios';
 
 const Trips = () => {
   const [trips, setTrips] = useState([]);
@@ -41,17 +42,44 @@ const Trips = () => {
     fetchTrips();
   }, [navigate]);
 
+  const handleDelete = async (tripId) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`http://localhost:3001/trips/${tripId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      // Remove the trip from the state
+      setTrips(trips.filter(trip => trip.id !== tripId));
+    } catch (err) {
+      console.error('Delete trip error:', err)
+      setError('Failed to delete trip');
+    }
+  };
+
   const renderTripCard = (trip) => (
-    <div
-      key={trip.id}
-      className="trip-card"
-      onClick={() => navigate(`/trips/${trip.id}/locations`)}
-    >
-      <h2>{trip.name}</h2>
-      <p className="trip-dates">
-        {new Date(trip.start_time).toLocaleDateString()} -
-        {new Date(trip.end_time).toLocaleDateString()}
-      </p>
+    <div key={trip.id} className="trip-card">
+      <div className="trip-content" onClick={() => navigate(`/trips/${trip.id}/locations`)}>
+        <h2>{trip.name}</h2>
+        <p className="trip-dates">
+          {new Date(trip.start_time).toLocaleDateString()} -
+          {new Date(trip.end_time).toLocaleDateString()}
+        </p>
+      </div>
+      <button
+        className="delete-button"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (window.confirm('Are you sure you want to delete this trip?')) {
+            handleDelete(trip.id);
+          }
+        }}
+      >
+        x
+      </button>
     </div>
   );
 
