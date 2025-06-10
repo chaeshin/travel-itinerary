@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user!  # Changed from authenticate_user to authenticate_user!
 
   def index
     @trips = Trip.all
