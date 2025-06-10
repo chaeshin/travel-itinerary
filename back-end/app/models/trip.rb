@@ -1,6 +1,7 @@
 class Trip < ApplicationRecord
-  has_many :locations
-  has_many :photos
+  has_many :locations, dependent: :destroy
+  has_many :photos, dependent: :destroy
+  has_many :users_trips, dependent: :destroy
   has_many :users, through: :users_trips
 
   validates :name, presence: true
